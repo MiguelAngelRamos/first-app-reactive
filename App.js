@@ -25,7 +25,8 @@ export default function App() {
     <>
       <View style={styles.container}>
        <Text style={styles.title}>Lista de Tareas </Text>
-       <View>
+
+       <View style={styles.inputContainer}>
         <TextInput 
           style={styles.input} 
           placeholder='Escriba una tarea...'
@@ -34,11 +35,14 @@ export default function App() {
           />
         <Button title="Agregar" onPress={addTask}/>
        </View>
+
        <FlatList 
         data={tasks}
         renderItem={({ item }) => (
          <TouchableOpacity onPress={() => toggleTask(item.id)}>
-          <Text>{item.text}</Text>
+          <Text style={[styles.task, item.completed && styles.completed]}>
+            {item.text}
+          </Text>
          </TouchableOpacity>
         )}
         keyExtractor={(item) => item.id}
@@ -61,11 +65,26 @@ const styles = StyleSheet.create({
     fontSize:24,
     fontWeight: 'bold',
   },
+  inputContainer: {
+    flexDirection: 'row',
+  },
   input: {
     borderBottomWidth: 1,
     borderBottomColor: '#ccc',
     padding: 8,
+    marginRight: 10,
     width: '70%'
+  },
+  task: {
+    fontSize: 18,
+    padding: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc',
+    width: '100%',
+  },
+  completed: {
+    textDecorationLine: 'line-through',
+    color: 'gray',
   }
 });
 
