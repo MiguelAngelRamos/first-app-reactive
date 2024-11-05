@@ -11,14 +11,15 @@ export default function App() {
     // si hay texto en el input    
     //       react         
     if(task.trim()){
-      setTasks([...tasks, {id: Date.now().toString, text: task, completed: false }]);
+      setTasks([...tasks, {id: Date.now().toString(), text: task, completed: false }]);
       setTask('');
     }
   }
   
   // Función para marcar dar la tarea por completada
   const toggleTask = (taskId) => {
-    setTasks(tasks.map(task => task.id === taskId ? {...task, completed: !task.completed}:task
+    setTasks(tasks.map(task => 
+      task.id === taskId ? {...task, completed: !task.completed } : task
     ));
   };
   return (
@@ -42,6 +43,7 @@ export default function App() {
          <TouchableOpacity onPress={() => toggleTask(item.id)}>
           <Text style={[styles.task, item.completed && styles.completed]}>
             {item.text}
+            
           </Text>
          </TouchableOpacity>
         )}
@@ -60,13 +62,16 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+    paddingTop: 50
   },
   title: {
     fontSize:24,
     fontWeight: 'bold',
+    marginBottom: 20
   },
   inputContainer: {
     flexDirection: 'row',
+    marginBottom: 20
   },
   input: {
     borderBottomWidth: 1,
